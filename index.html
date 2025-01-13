@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chord Reeds Viewer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .chord {
+            margin: 10px;
+            padding: 10px;
+            display: inline-block;
+            background-color: #f2f2f2;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .chord-name {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .reeds {
+            margin-top: 10px;
+        }
+        .reed {
+            display: inline-block;
+            margin-right: 5px;
+            padding: 5px;
+            background-color: #ddd;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Chord Reeds Viewer</h1>
+
+<div id="chords-container"></div>
+
+<script>
+    // Your JSON data
+    const chords = {
+        "C_major": ["W4", "W6", "W8"],
+        "C_minor": ["W4", "B4", "W8"],
+        "C_sharp_major": ["B3", "W5", "B6"],
+        "C_sharp_minor": ["B3", "W5", "B6"],
+        "D_major": ["W5", "B5", "W9"],
+        "D_minor": ["W5", "W7", "W9"],
+        "D_sharp_major": ["B4", "W6", "B7"],
+        "D_sharp_minor": ["B4", "B5", "B7"],
+        "E_major": ["W6", "B6", "W10"],
+        "E_minor": ["W6", "W8", "W10"],
+        "F_major": ["W0", "W2", "W4"],
+        "F_minor": ["W0", "B2", "W4"],
+        "F_sharp_major": ["B0", "B1", "B3"],
+        "F_sharp_minor": ["B0", "W1", "B3"],
+        "G_major": ["W1", "W3", "W5"],
+        "G_minor": ["W1", "B1", "W5"],
+        "G_sharp_major": ["B1", "W3", "B4"],
+        "G_sharp_minor": ["B1", "B2", "B4"],
+        "A_major": ["W2", "B2", "W6"],
+        "A_minor": ["W2", "W4", "W6"],
+        "A_sharp_major": ["B2", "W4", "W7"],
+        "A_sharp_minor": ["B2", "B3", "W7"],
+        "B_major": ["W3", "B3", "B5"],
+        "B_minor": ["W3", "W5", "B5"]
+    };
+
+    const reeds = {
+        "W0": "F",
+        "W1": "G",
+        "W2": "A",
+        "W3": "B",
+        "W4": "C",
+        "W5": "D",
+        "W6": "E",
+        "W7": "F",
+        "W8": "G",
+        "W9": "A",
+        "W10": "B",
+        "B0": "F#",
+        "B1": "G#",
+        "B2": "A#",
+        "B3": "C#",
+        "B4": "D#",
+        "B5": "F#",
+        "B6": "G#",
+        "B7": "A#"
+    };
+
+    const chordsName = {
+        "C_major": "C",
+        "C_minor": "Cm",
+        "C_sharp_major": "C#",
+        "C_sharp_minor": "C#m",
+        "D_major": "D",
+        "D_minor": "Dm",
+        "D_sharp_major": "D#",
+        "D_sharp_minor": "D#m",
+        "E_major": "E",
+        "E_minor": "Em",
+        "F_major": "F",
+        "F_minor": "Fm",
+        "F_sharp_major": "F#",
+        "F_sharp_minor": "F#m",
+        "G_major": "G",
+        "G_minor": "Gm",
+        "G_sharp_major": "G#",
+        "G_sharp_minor": "G#m",
+        "A_major": "A",
+        "A_minor": "Am",
+        "A_sharp_major": "A#",
+        "A_sharp_minor": "A#m",
+        "B_major": "B",
+        "B_minor": "Bm"
+    };
+
+    // Function to create the chord display
+    function createChordDisplay(chordKey, reedsArray) {
+        const chordElement = document.createElement("div");
+        chordElement.classList.add("chord");
+
+        const chordNameElement = document.createElement("div");
+        chordNameElement.classList.add("chord-name");
+        chordNameElement.textContent = chordsName[chordKey]; // Use chordsName for sharp notation
+        chordElement.appendChild(chordNameElement);
+
+        const reedsElement = document.createElement("div");
+        reedsElement.classList.add("reeds");
+
+        // Map reed values to their corresponding note names
+        reedsArray.forEach(reed => {
+            const reedName = reeds[reed];
+            const reedElement = document.createElement("span");
+            reedElement.classList.add("reed");
+            reedElement.textContent = reedName;
+            reedsElement.appendChild(reedElement);
+        });
+
+        chordElement.appendChild(reedsElement);
+
+        return chordElement;
+    }
+
+    // Loop through chords and create the display
+    const chordsContainer = document.getElementById("chords-container");
+
+    for (const [chordKey, reedsArray] of Object.entries(chords)) {
+        const chordDisplay = createChordDisplay(chordKey, reedsArray);
+        chordsContainer.appendChild(chordDisplay);
+    }
+</script>
+
+</body>
+</html>

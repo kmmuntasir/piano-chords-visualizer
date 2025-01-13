@@ -1,0 +1,27 @@
+{
+  "C_major": "C",
+  "C_minor": "Cm",
+  "C_sharp_major": "C#",
+  "C_sharp_minor": "C#m",
+  "D_major": "D",
+  "D_minor": "Dm",
+  "D_sharp_major": "D#",
+  "D_sharp_minor": "D#m",
+  "E_major": "E",
+  "E_minor": "Em",
+  "F_major": "F",
+  "F_minor": "Fm",
+  "F_sharp_major": "F#",
+  "F_sharp_minor": "F#m",
+  "G_major": "G",
+  "G_minor": "Gm",
+  "G_sharp_major": "G#",
+  "G_sharp_minor": "G#m",
+  "A_major": "A",
+  "A_minor": "Am",
+  "A_sharp_major": "A#",
+  "A_sharp_minor": "A#m",
+  "B_major": "B",
+  "B_minor": "Bm"
+}
+
