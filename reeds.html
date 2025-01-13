@@ -35,7 +35,7 @@
 <div class="piano-container" id="pianoContainer"></div>
 
 <script>
-    function createPianoCanvas(width, height, totalWhiteReeds = 7, startingNote = 'C') {
+    function createPianoCanvas(width = 800, height = 300, totalWhiteReeds = 7, startingNote = 'C') {
         const wrapper = document.createElement('div');
         wrapper.className = 'piano-wrapper';
         wrapper.style.width = `${width}px`;
@@ -116,7 +116,7 @@
     const pianoContainer = document.getElementById('pianoContainer');
     pianoContainer.appendChild(createPianoCanvas(500, 160, 11, 'F'));
     pianoContainer.appendChild(createPianoCanvas(1500, 250, 22, 'C'));
-    pianoContainer.appendChild(createPianoCanvas(800, 250));
+    pianoContainer.appendChild(createPianoCanvas());
 </script>
 </body>
 </html>
