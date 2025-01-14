@@ -4,119 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Piano View with Notes</title>
+    <link rel="stylesheet" href="piano.css" />
     <style>
         body {
             background-color: #d4d4d4;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             height: 100vh;
             margin: 0;
         }
 
         .piano-container {
             display: flex;
+            justify-content: center;
             align-items: center;
             flex-direction: column;
             gap: 20px; /* Space between the piano views */
-        }
-
-        .piano-wrapper {
-            display: inline-block;
-            border: 1px solid #000; /* Optional border for the div */
-        }
-
-        canvas {
-            display: block;
+            height: 100vh;
         }
     </style>
 </head>
 <body>
 <div class="piano-container" id="pianoContainer"></div>
 
+<script src="piano.js"></script>
 <script>
-    function createPianoCanvas(width = 800, height = 300, totalWhiteReeds = 7, startingNote = 'C') {
-        const wrapper = document.createElement('div');
-        wrapper.className = 'piano-wrapper';
-        wrapper.style.width = `${width}px`;
-        wrapper.style.height = `${height}px`;
+    const CUSTOM_PIANO_STYLE = {
+        whiteKeyColor: 'white',
+        blackKeyColor: 'black',
+        whiteKeyStrokeColor: 'black',
+        blackKeyStrokeColor: 'black',
+        whiteKeyFontColor: 'black',
+        blackKeyFontColor: 'white',
+        fontSizeFactor: 12,
+    };
 
-        const canvas = document.createElement('canvas');
-        canvas.width = width;
-        canvas.height = height;
-        wrapper.appendChild(canvas);
+    const pianoConfigs = [
+        [CUSTOM_PIANO_STYLE, 500, 160, 11, 'F'],
+        [{ ...CUSTOM_PIANO_STYLE }, 1200, 200, 22, 'C'],
+        [] // Default style
+    ];
 
-        const ctx = canvas.getContext('2d');
-        const ctxLineWidth = (width /totalWhiteReeds) / 40;
-
-        const whiteNotesSequence = ['C', 'D', 'E', 'F', 'G', 'A', 'B'];
-        const blackNotesSequence = ['C#', 'D#', '', 'F#', 'G#', 'A#', '']; // Use '' for missing black keys
-        const startingIndex = whiteNotesSequence.indexOf(startingNote);
-
-        if (startingIndex === -1) {
-            console.error('Invalid starting note! Please provide a valid white key note (C, D, E, F, G, A, B).');
-            return wrapper;
-        }
-
-        const whiteKeyWidth = width / totalWhiteReeds; // Width of each white key
-        const blackKeyWidth = (whiteKeyWidth / 3) * 2; // Width of each black key
-        const whiteKeyHeight = height; // Height of each white key
-        const blackKeyHeight = (height / 10) * 6; // Height of each black key
-
-        let currentWhiteNoteIndex = startingIndex;
-
-        // Draw white keys and their notes
-        for (let i = 0; i < totalWhiteReeds; i++) {
-            const whiteNote = whiteNotesSequence[currentWhiteNoteIndex % 7];
-            ctx.fillStyle = 'white';
-            ctx.fillRect(i * whiteKeyWidth, 0, whiteKeyWidth, whiteKeyHeight);
-            ctx.lineWidth = ctxLineWidth;
-            ctx.strokeStyle = 'black';
-            ctx.strokeRect(i * whiteKeyWidth, 0, whiteKeyWidth, whiteKeyHeight);
-
-            // Add white-key note labels
-            ctx.fillStyle = 'black';
-            ctx.font = `bold ${Math.floor(height / 12)}px Arial`;
-            ctx.textAlign = 'center';
-            ctx.textBaseline = 'middle';
-            ctx.fillText(whiteNote, i * whiteKeyWidth + whiteKeyWidth / 2, whiteKeyHeight - (height / 7.5));
-
-            currentWhiteNoteIndex++;
-        }
-
-        // Draw black keys and their notes
-        currentWhiteNoteIndex = startingIndex;
-        for (let i = 0; i < totalWhiteReeds; i++) {
-            const whiteNoteIndex = currentWhiteNoteIndex % 7;
-            const blackNote = blackNotesSequence[whiteNoteIndex];
-
-            if (blackNote !== '') {
-                const left = i * whiteKeyWidth + whiteKeyWidth - blackKeyWidth / 2;
-                ctx.fillStyle = 'black';
-                ctx.fillRect(left, 0, blackKeyWidth, blackKeyHeight);
-                ctx.lineWidth = ctxLineWidth;
-                ctx.strokeStyle = 'black';
-                ctx.strokeRect(left, 0, blackKeyWidth, blackKeyHeight);
-
-                // Add black-key note labels
-                ctx.fillStyle = 'white';
-                ctx.font = `bold ${Math.floor(height / 15)}px Arial`;
-                ctx.textAlign = 'center';
-                ctx.textBaseline = 'middle';
-                ctx.fillText(blackNote, left + blackKeyWidth / 2, blackKeyHeight - (height / 9));
-            }
-
-            currentWhiteNoteIndex++;
-        }
-
-        return wrapper;
-    }
-
-    // Render piano view with wrapper
-    const pianoContainer = document.getElementById('pianoContainer');
-    pianoContainer.appendChild(createPianoCanvas(500, 160, 11, 'F'));
-    pianoContainer.appendChild(createPianoCanvas(1500, 250, 22, 'C'));
-    pianoContainer.appendChild(createPianoCanvas());
+    renderPianos(pianoConfigs, 'pianoContainer');
 </script>
+
 </body>
 </html>
