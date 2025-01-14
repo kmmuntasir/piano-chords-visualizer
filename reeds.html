@@ -34,13 +34,14 @@
         blackKeyStrokeColor: 'black',
         whiteKeyFontColor: 'black',
         blackKeyFontColor: 'white',
+        highlightColor: 'limegreen',
         fontSizeFactor: 12,
     };
 
     const pianoConfigs = [
-        [CUSTOM_PIANO_STYLE, 500, 160, 11, 'F'],
-        [{ ...CUSTOM_PIANO_STYLE }, 1200, 200, 22, 'C'],
-        [] // Default style
+        [CUSTOM_PIANO_STYLE, 550, 160, 12, 'F', ['C', 'E', 'G']],
+        // [{ ...CUSTOM_PIANO_STYLE }, 1200, 200, 22, 'C', ['C', 'E', 'G']],
+        // [{}, 800, 250, 15, 'D', ['D', 'F#', 'A']] // Default style
     ];
 
     renderPianos(pianoConfigs, 'pianoContainer');
